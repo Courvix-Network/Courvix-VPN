@@ -35,7 +35,6 @@ namespace Courvix_VPN
             this.headerbar = new Guna.UI2.WinForms.Guna2Separator();
             this.statuslbl = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.serversCB = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.xbtn = new Guna.UI2.WinForms.Guna2ControlBox();
             this.leftborder = new Guna.UI2.WinForms.Guna2Panel();
             this.rightborder = new Guna.UI2.WinForms.Guna2Panel();
             this.topborder = new Guna.UI2.WinForms.Guna2Panel();
@@ -47,6 +46,8 @@ namespace Courvix_VPN
             this.btnMinimize = new Guna.UI2.WinForms.Guna2ControlBox();
             this.connectingIndicator = new Guna.UI2.WinForms.Guna2ProgressIndicator();
             this.lblVersion = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
             // headerlbl
@@ -113,20 +114,6 @@ namespace Courvix_VPN
             this.serversCB.ShadowDecoration.Parent = this.serversCB;
             this.serversCB.Size = new System.Drawing.Size(340, 36);
             this.serversCB.TabIndex = 3;
-            // 
-            // xbtn
-            // 
-            this.xbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xbtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(14)))), ((int)(((byte)(21)))));
-            this.xbtn.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
-            this.xbtn.HoverState.Parent = this.xbtn;
-            this.xbtn.IconColor = System.Drawing.Color.White;
-            this.xbtn.Location = new System.Drawing.Point(319, 1);
-            this.xbtn.Name = "xbtn";
-            this.xbtn.ShadowDecoration.Parent = this.xbtn;
-            this.xbtn.Size = new System.Drawing.Size(45, 29);
-            this.xbtn.TabIndex = 4;
-            this.xbtn.Click += new System.EventHandler(this.xbtn_Click);
             // 
             // leftborder
             // 
@@ -206,6 +193,7 @@ namespace Courvix_VPN
             this.guna2BorderlessForm1.AnimationInterval = 100;
             this.guna2BorderlessForm1.BorderRadius = 2;
             this.guna2BorderlessForm1.ContainerControl = this;
+            this.guna2BorderlessForm1.DockForm = false;
             this.guna2BorderlessForm1.ResizeForm = false;
             this.guna2BorderlessForm1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
@@ -267,12 +255,36 @@ namespace Courvix_VPN
             this.lblVersion.TabIndex = 13;
             this.lblVersion.Text = "version n/a";
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "CourvixVPN";
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // guna2Button1
+            // 
+            this.guna2Button1.BackgroundImage = global::Courvix_VPN.Properties.Resources.delete_32px;
+            this.guna2Button1.CheckedState.Parent = this.guna2Button1;
+            this.guna2Button1.CustomImages.Parent = this.guna2Button1;
+            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(14)))), ((int)(((byte)(21)))));
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.HoverState.Parent = this.guna2Button1;
+            this.guna2Button1.Image = global::Courvix_VPN.Properties.Resources.delete_32px;
+            this.guna2Button1.Location = new System.Drawing.Point(319, 4);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
+            this.guna2Button1.Size = new System.Drawing.Size(42, 29);
+            this.guna2Button1.TabIndex = 14;
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(14)))), ((int)(((byte)(21)))));
             this.ClientSize = new System.Drawing.Size(364, 435);
+            this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.connectingIndicator);
             this.Controls.Add(this.btnMinimize);
@@ -282,7 +294,6 @@ namespace Courvix_VPN
             this.Controls.Add(this.topborder);
             this.Controls.Add(this.rightborder);
             this.Controls.Add(this.leftborder);
-            this.Controls.Add(this.xbtn);
             this.Controls.Add(this.serversCB);
             this.Controls.Add(this.statuslbl);
             this.Controls.Add(this.headerbar);
@@ -303,7 +314,6 @@ namespace Courvix_VPN
         private Guna.UI2.WinForms.Guna2Separator headerbar;
         private Guna.UI2.WinForms.Guna2HtmlLabel statuslbl;
         private Guna.UI2.WinForms.Guna2ComboBox serversCB;
-        private Guna.UI2.WinForms.Guna2ControlBox xbtn;
         private Guna.UI2.WinForms.Guna2Panel leftborder;
         private Guna.UI2.WinForms.Guna2Panel rightborder;
         private Guna.UI2.WinForms.Guna2Panel topborder;
@@ -315,6 +325,8 @@ namespace Courvix_VPN
         private Guna.UI2.WinForms.Guna2ControlBox btnMinimize;
         private Guna.UI2.WinForms.Guna2ProgressIndicator connectingIndicator;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblVersion;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }
 

@@ -58,6 +58,7 @@ namespace Courvix_VPN
 
                 await GetConfig(server);
                 statuslbl.Text = "Status: Connecting";
+                serversCB.Enabled = false;
                 connectingIndicator.Visible = true;
                 connectingIndicator.Start();
                 _openvpn = new OpenVPN(Path.Combine(Strings.ConfigDirectory, server.ServerName),
@@ -183,6 +184,8 @@ namespace Courvix_VPN
                 ConnectBTN.Text = "Connect";
                 statuslbl.Text = "Status: Not Connected";
                 CustomMessageBox.Show("Courvix VPN", output);
+                // enabling server switching
+                serversCB.Enabled = true;
             });
 
             Globals.RichPresence.State = $"Disconnected";
@@ -198,6 +201,8 @@ namespace Courvix_VPN
                 ConnectBTN.Text = "Connect";
                 statuslbl.Text = "Status: Not Connected";
                 ConnectBTN.Enabled = true;
+                // enabling server switching
+                serversCB.Enabled = true;
             });
         }
 
@@ -212,6 +217,8 @@ namespace Courvix_VPN
                 statuslbl.Text = "Status: Connected";
                 connectingIndicator.Visible = false;
                 connectingIndicator.Stop();
+                // disabling switch servers until they disconnect
+                serversCB.Enabled = false;
             });
         }
 
@@ -229,11 +236,32 @@ namespace Courvix_VPN
             }
         }
 
-        private void xbtn_Click(object sender, EventArgs e)
+        // If the trey icon gets double clicked it will bring the app back up and hide the icon
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            // Make sure RPC is properly cleared on exit
-            Globals.RPCClient.Dispose();
-            Application.Exit();
+            Show();
+            notifyIcon1.Visible = false;
+        }
+
+        // We switched it to a button because what ever the fuck toshi had wasnt registering the code
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            if (ConnectBTN.Text == "Disconnect") // Checking if they are currently connected
+            {
+                // Change the message, i cant think of anything
+                CustomMessageBox.Show("Courvix VPN", "You are currently connected, we will minimize the application to the trey so you can stay connected without us being in your way.");
+
+                // Minimizing to trey
+                Hide();
+                notifyIcon1.Visible = true;
+                return;
+            }
+            else // If they arent connected it just closes normally 
+            {
+                // Make sure RPC is properly cleared on exit
+                Globals.RPCClient.Dispose();
+                Environment.Exit(0);
+            }
         }
     }
 }

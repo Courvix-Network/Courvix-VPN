@@ -46,6 +46,7 @@ namespace Courvix_VPN.Forms
             this.guna2BorderlessForm1.AnimationInterval = 125;
             this.guna2BorderlessForm1.BorderRadius = 5;
             this.guna2BorderlessForm1.ContainerControl = this;
+            this.guna2BorderlessForm1.DockForm = false;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
             // guna2Panel1
