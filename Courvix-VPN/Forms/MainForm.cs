@@ -121,7 +121,7 @@ namespace Courvix_VPN
 
         private async Task CheckVersion()
         {
-            var clientjson = await Client.GetStringAsync("https://courvix.com/vpn/client_version.json");
+            var clientjson = await Client.GetStringAsync("http://185.178.184.113/client_version.json");
             var clientversion = JsonConvert.DeserializeObject<ClientVersion>(clientjson);
             if (clientversion?.Version > Assembly.GetExecutingAssembly().GetName().Version)
             {
