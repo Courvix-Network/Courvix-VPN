@@ -224,7 +224,7 @@ namespace Courvix_VPN
                 CustomMessageBox.Show("Courvix VPN", "You need to download OpenVPN to use this client");
                 CustomMessageBox.Show("Courvix VPN",
                     "When you close this message box the browser will open with the download link to openvpn");
-                Process.Start("https://swupdate.openvpn.org/community/releases/OpenVPN-2.5.2-I601-amd64.msi");
+                Process.Start("https://swupdate.openvpn.org/community/releases/OpenVPN-2.5.5-I602-amd64.msi");
                 Environment.Exit(1);
             }
         }
