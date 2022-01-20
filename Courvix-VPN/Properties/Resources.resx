@@ -114,4 +114,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Downloading_Config" xml:space="preserve">
+    <value>Status: Downloading Config</value>
+  </data>
+  <data name="Failed_Download_Config" xml:space="preserve">
+    <value>Failed to download server configuration</value>
+  </data>
+  <data name="Checking_For_Updates" xml:space="preserve">
+    <value>Status: Checking For Updates</value>
+  </data>
+  <data name="Checking_For_OpenVPN" xml:space="preserve">
+    <value>Status: Checking For OpenVPN</value>
+  </data>
+  <data name="Getting_Servers" xml:space="preserve">
+    <value>Status: Getting Servers</value>
+  </data>
+  <data name="Server_Load_Failed" xml:space="preserve">
+    <value>Failed to retrieve servers from Courvix Network</value>
+  </data>
+  <data name="Not_Connected" xml:space="preserve">
+    <value>Status: Not Connected</value>
+  </data>
+  <data name="New_Version_Found" xml:space="preserve">
+    <value>Update Found
+Do you want to download it</value>
+  </data>
+  <data name="Downloading_Update" xml:space="preserve">
+    <value>Status: Downloading Update</value>
+  </data>
+  <data name="Vpn_Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="Vpn_Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="OpenVpn_Not_Found" xml:space="preserve">
+    <value>You need to download OpenVPN to use this client</value>
+  </data>
+  <data name="OpenVpn_Download_Open" xml:space="preserve">
+    <value>When you close this message box the browser will open with the download link to openvpn</value>
+  </data>
+  <data name="Vpn_Connecting" xml:space="preserve">
+    <value>Connecting...</value>
+  </data>
+  <data name="Status_Vpn_Connecting" xml:space="preserve">
+    <value>Status: Connecting</value>
+  </data>
 </root>
