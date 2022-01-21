@@ -122,7 +122,7 @@ namespace Courvix_VPN
 
         private async Task CheckVersion()
         {
-            var clientversion = await _client.GetAsync<ClientVersion>("https://courvix.com/vpn/client_version.json");
+            var clientversion = await _client.GetAsync<ClientVersion>("https://api.courvix.com/vpn/servers");
             if (clientversion.Version > Assembly.GetExecutingAssembly().GetName().Version)
             {
                 if (MessageBox.Show(Resources.New_Version_Found, "Courvix VPN",
