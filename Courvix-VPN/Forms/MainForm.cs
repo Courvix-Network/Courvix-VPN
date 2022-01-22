@@ -1,4 +1,4 @@
-﻿using Courvix_VPN.Forms;
+using Courvix_VPN.Forms;
 /*
  * Toshiro Tanazaki
  * 
@@ -25,12 +25,13 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using Courvix_VPN.Properties;
 
 namespace Courvix_VPN
 {
     public partial class MainForm : Form
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient _client = new HttpClient();
         private static List<Server> _servers;
         private static OpenVPN _openvpn;
         private static string _connectedServer;
@@ -43,7 +44,7 @@ namespace Courvix_VPN
 
         private async void ConnectBTN_Click(object sender, EventArgs e)
         {
-            if (ConnectBTN.Text == "Disconnect")
+            if (ConnectBTN.Text == Resources.Vpn_Disconnect)
             {
                 await Task.Run(() => _openvpn.Dispose());
                 _openvpn = null;
@@ -53,15 +54,15 @@ namespace Courvix_VPN
                 var server = _servers.First(x => x.ServerName == serversCB.Text);
                 _connectedServer = server.ServerName;
                 ConnectBTN.Enabled = false;
-                ConnectBTN.Text = "Connecting...";
+                ConnectBTN.Text = Resources.Vpn_Connecting;
                 ConnectBTN.ShadowDecoration.Color = Color.Gray;
 
                 await GetConfig(server);
-                statuslbl.Text = "Status: Connecting";
+                statuslbl.Text = Resources.Status_Vpn_Connecting;
                 connectingIndicator.Visible = true;
                 connectingIndicator.Start();
-                _openvpn = new OpenVPN(Path.Combine(Strings.ConfigDirectory, server.ServerName),
-                    logPath: Strings.OpenVPNLogs);
+                _openvpn = new OpenVPN(Path.Combine(Strings.ConfigDirectory, server.ServerName), Strings.OpenVpnPath,
+                    logPath: Strings.OpenVpnLogs);
                 _openvpn.Closed += Manager_Closed;
                 _openvpn.Connected += Manager_Connected;
                 _openvpn.ConnectionErrored += Manager_ConnectionErrored;
@@ -71,7 +72,7 @@ namespace Courvix_VPN
 
         private void Manager_Output(object sender, string output)
         {
-            File.AppendAllText(Strings.OpenVPNLogs, output);
+            File.AppendAllText(Strings.OpenVpnLogs, output);
         }
 
         private async Task GetConfig(Server server)
@@ -80,11 +81,11 @@ namespace Courvix_VPN
                 Directory.CreateDirectory(Strings.ConfigDirectory);
             if (!File.Exists(Path.Combine(Strings.ConfigDirectory, server.ServerName)))
             {
-                statuslbl.Text = "Status: Downloading Config";
-                var resp = await Client.GetAsync(server.ConfigLink);
+                statuslbl.Text = Resources.Downloading_Config;
+                var resp = await _client.GetAsync(server.ConfigLink);
                 if ((int) resp.StatusCode == 429)
                 {
-                    MessageBox.Show("Failed to download server configuration");
+                    MessageBox.Show(Resources.Failed_Download_Config);
                     Application.Exit();
                 }
 
@@ -98,38 +99,37 @@ namespace Courvix_VPN
             
             try
             {
-                statuslbl.Text = "Status: Checking For Updates";
+                statuslbl.Text = Resources.Checking_For_Updates;
                 await CheckVersion();
-                statuslbl.Text = "Status: Checking For OpenVPN";
+                statuslbl.Text = Resources.Checking_For_OpenVPN;
                 CheckOpenVPN();
-                statuslbl.Text = "Status: Getting Servers";
-                var serverjson = await Client.GetStringAsync("https://courvix.com/vpn/server_list.json");
-                _servers = JsonConvert.DeserializeObject<List<Server>>(serverjson).OrderBy(x => x.ServerName).ToList();
-                serversCB.DataSource = _servers.Where(x => x.Enabled == true).Select(x => x.ServerName).ToArray();
+                statuslbl.Text = Resources.Getting_Servers;
+                _servers = await _client.GetAsync<List<Server>>("https://courvix.com/vpn/server_list.json");
+                _servers = _servers.OrderBy(x => x.CountryCode).ThenBy(x => x.ServerName).ToList();
+                serversCB.DataSource = _servers.Where(x => x.Enabled && !x.Down).Select(x => x.ServerName).ToArray();
             }
             catch
             {
-                MessageBox.Show("Failed to retrieve servers from Courvix Network");
+                MessageBox.Show(Resources.Server_Load_Failed);
                 Application.Exit();
             }
 
             var settings = SettingsManager.Load();
             RPCCheckbox.Checked = settings.DiscordRPC;
-            statuslbl.Text = "Status: Not Connected";
+            statuslbl.Text = Resources.Not_Connected;
             lblVersion.Text = "v1.0.3";
         }
 
         private async Task CheckVersion()
         {
-            var clientjson = await Client.GetStringAsync("https://courvix.com/vpn/client_version.json");
-            var clientversion = JsonConvert.DeserializeObject<ClientVersion>(clientjson);
-            if (clientversion?.Version > Assembly.GetExecutingAssembly().GetName().Version)
+            var clientversion = await _client.GetAsync<ClientVersion>("https://api.courvix.com/vpn/servers");
+            if (clientversion.Version > Assembly.GetExecutingAssembly().GetName().Version)
             {
-                if (MessageBox.Show("Update Found\nDo you want to download it", "Courvix VPN",
+                if (MessageBox.Show(Resources.New_Version_Found, "Courvix VPN",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    statuslbl.Text = "Status: Downloading Update";
-                    var bytes = await Client.GetByteArrayAsync(clientversion.DownloadLink);
+                    statuslbl.Text = Resources.Downloading_Update;
+                    var bytes = await _client.GetByteArrayAsync(clientversion.DownloadLink);
                     var fileName = Environment.GetCommandLineArgs().First();
                     if (File.Exists(Path.Combine(Path.GetTempPath(), Path.GetFileName(fileName))))
                     {
@@ -180,8 +180,8 @@ namespace Courvix_VPN
             base.Invoke((MethodInvoker)delegate
             {
                 ConnectBTN.Enabled = true;
-                ConnectBTN.Text = "Connect";
-                statuslbl.Text = "Status: Not Connected";
+                ConnectBTN.Text = Resources.Vpn_Connect;
+                statuslbl.Text = Resources.Not_Connected;
                 CustomMessageBox.Show("Courvix VPN", output);
             });
 
@@ -195,8 +195,8 @@ namespace Courvix_VPN
             Globals.SetRPC();
             base.Invoke((MethodInvoker)delegate
             {
-                ConnectBTN.Text = "Connect";
-                statuslbl.Text = "Status: Not Connected";
+                ConnectBTN.Text = Resources.Vpn_Connect;
+                statuslbl.Text = Resources.Not_Connected;
                 ConnectBTN.Enabled = true;
             });
         }
@@ -207,7 +207,7 @@ namespace Courvix_VPN
             Globals.SetRPC();
             base.Invoke((MethodInvoker)delegate
             {
-                ConnectBTN.Text = "Disconnect";
+                ConnectBTN.Text = Resources.Vpn_Disconnect;
                 ConnectBTN.Enabled = true;
                 statuslbl.Text = "Status: Connected";
                 connectingIndicator.Visible = false;
@@ -217,13 +217,11 @@ namespace Courvix_VPN
 
         private void CheckOpenVPN()
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "OpenVPN", "bin",
-                "openvpn.exe");
-            if (!File.Exists(path))
+            if (!File.Exists(Strings.OpenVpnPath))
             {
-                CustomMessageBox.Show("Courvix VPN", "You need to download OpenVPN to use this client");
+                CustomMessageBox.Show("Courvix VPN", Resources.OpenVpn_Not_Found);
                 CustomMessageBox.Show("Courvix VPN",
-                    "When you close this message box the browser will open with the download link to openvpn");
+                    Resources.OpenVpn_Download_Open);
                 Process.Start("https://swupdate.openvpn.org/community/releases/OpenVPN-2.5.5-I602-amd64.msi");
                 Environment.Exit(1);
             }
