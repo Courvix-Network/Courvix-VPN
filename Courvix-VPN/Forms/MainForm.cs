@@ -104,7 +104,7 @@ namespace Courvix_VPN
                 statuslbl.Text = Resources.Checking_For_OpenVPN;
                 CheckOpenVPN();
                 statuslbl.Text = Resources.Getting_Servers;
-                _servers = await _client.GetAsync<List<Server>>("https://courvix.com/vpn/server_list.json");
+                _servers = await _client.GetAsync<List<Server>>("https://api.courvix.com/vpn/servers");
                 _servers = _servers.OrderBy(x => x.CountryCode).ThenBy(x => x.ServerName).ToList();
                 serversCB.DataSource = _servers.Where(x => x.Enabled && !x.Down).Select(x => x.ServerName).ToArray();
             }
@@ -122,7 +122,7 @@ namespace Courvix_VPN
 
         private async Task CheckVersion()
         {
-            var clientversion = await _client.GetAsync<ClientVersion>("https://api.courvix.com/vpn/servers");
+            var clientversion = await _client.GetAsync<ClientVersion>("https://courvix.com/vpn/client_version.json");
             if (clientversion.Version > Assembly.GetExecutingAssembly().GetName().Version)
             {
                 if (MessageBox.Show(Resources.New_Version_Found, "Courvix VPN",
