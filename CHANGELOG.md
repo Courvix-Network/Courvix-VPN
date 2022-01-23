@@ -2,6 +2,16 @@
 
 Documenting updates to the Courvix VPN client
 
+## [1.0.4] - January 23 2022
+
+### Added
+- Logs should now be visible on errors so you don't have to go searching for them
+
+### Updated
+- Updated packages, including OpenVPN lib by Toshi which should fix some bugs
+- Server list now fetches from API URL
+- OpenVPN is now found with registry path, not by looking in the default install location
+
 ## [1.0.3] - July 7 2021
 
 ### Changed
