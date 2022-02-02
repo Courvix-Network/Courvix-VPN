@@ -10,21 +10,16 @@
 
 using Courvix_VPN.Models;
 using OpenVpn;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
-using System.IO.Compression;
-using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 using Courvix_VPN.Properties;
 
 namespace Courvix_VPN
@@ -39,7 +34,8 @@ namespace Courvix_VPN
         public MainForm()
         {
             InitializeComponent();
-
+            _client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent",
+                $"CourvixVPN Windows/{Assembly.GetEntryAssembly().GetName().Version}");
         }
 
         private async void ConnectBTN_Click(object sender, EventArgs e)
@@ -122,7 +118,7 @@ namespace Courvix_VPN
             var settings = SettingsManager.Load();
             RPCCheckbox.Checked = settings.DiscordRPC;
             statuslbl.Text = Resources.Not_Connected;
-            lblVersion.Text = "1.0.4";
+            lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private async Task CheckVersion()
