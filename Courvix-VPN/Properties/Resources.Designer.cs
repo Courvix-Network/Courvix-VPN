@@ -79,6 +79,15 @@ namespace Courvix_VPN.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status: Connected.
+        /// </summary>
+        internal static string Connected {
+            get {
+                return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status: Downloading Config.
         /// </summary>
         internal static string Downloading_Config {
@@ -152,6 +161,15 @@ namespace Courvix_VPN.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reconnect.
+        /// </summary>
+        internal static string Reconnect {
+            get {
+                return ResourceManager.GetString("Reconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to retrieve servers from Courvix Network.
         /// </summary>
         internal static string Server_Load_Failed {
@@ -166,6 +184,15 @@ namespace Courvix_VPN.Properties {
         internal static string Status_Vpn_Connecting {
             get {
                 return ResourceManager.GetString("Status_Vpn_Connecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;An unhandled exception occured\nIt has been logged to %appdata%\Courvix\error.log&quot;.
+        /// </summary>
+        internal static string UnhandledException {
+            get {
+                return ResourceManager.GetString("UnhandledException", resourceCulture);
             }
         }
         

@@ -97,12 +97,7 @@ namespace Courvix_VPN
             this.serversCB.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.serversCB.HoverState.Parent = this.serversCB;
             this.serversCB.ItemHeight = 30;
-            this.serversCB.Items.AddRange(new object[] {
-            "CONNECTION-1",
-            "CONNECTION-2",
-            "CONNECTION-3",
-            "CONNECTION-4",
-            "CONNECTION-5"});
+            this.serversCB.Items.AddRange(new object[] { "CONNECTION-1", "CONNECTION-2", "CONNECTION-3", "CONNECTION-4", "CONNECTION-5" });
             this.serversCB.ItemsAppearance.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.serversCB.ItemsAppearance.Parent = this.serversCB;
             this.serversCB.ItemsAppearance.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
@@ -113,6 +108,7 @@ namespace Courvix_VPN
             this.serversCB.ShadowDecoration.Parent = this.serversCB;
             this.serversCB.Size = new System.Drawing.Size(340, 36);
             this.serversCB.TabIndex = 3;
+            this.serversCB.SelectedIndexChanged += new System.EventHandler(this.serversCB_SelectedIndexChanged);
             // 
             // xbtn
             // 
@@ -178,6 +174,7 @@ namespace Courvix_VPN
             this.ConnectBTN.CheckedState.Parent = this.ConnectBTN;
             this.ConnectBTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ConnectBTN.CustomImages.Parent = this.ConnectBTN;
+            this.ConnectBTN.DisabledState.Parent = this.ConnectBTN;
             this.ConnectBTN.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
             this.ConnectBTN.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectBTN.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -196,8 +193,8 @@ namespace Courvix_VPN
             // guna2DragControl1
             // 
             this.guna2DragControl1.ContainerControl = this;
+            this.guna2DragControl1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2DragControl1.TargetControl = this.headerlbl;
-            this.guna2DragControl1.TransparentWhileDrag = true;
             this.guna2DragControl1.UseTransparentDrag = true;
             // 
             // guna2BorderlessForm1
@@ -206,6 +203,7 @@ namespace Courvix_VPN
             this.guna2BorderlessForm1.AnimationInterval = 100;
             this.guna2BorderlessForm1.BorderRadius = 2;
             this.guna2BorderlessForm1.ContainerControl = this;
+            this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.ResizeForm = false;
             this.guna2BorderlessForm1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
@@ -252,6 +250,7 @@ namespace Courvix_VPN
             this.connectingIndicator.Location = new System.Drawing.Point(107, 416);
             this.connectingIndicator.Name = "connectingIndicator";
             this.connectingIndicator.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
+            this.connectingIndicator.ShadowDecoration.Parent = this.connectingIndicator;
             this.connectingIndicator.Size = new System.Drawing.Size(17, 13);
             this.connectingIndicator.TabIndex = 12;
             this.connectingIndicator.Visible = false;
@@ -294,7 +293,6 @@ namespace Courvix_VPN
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

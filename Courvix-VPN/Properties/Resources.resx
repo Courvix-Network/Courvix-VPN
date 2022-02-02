@@ -160,4 +160,13 @@ Do you want to download it</value>
   <data name="Status_Vpn_Connecting" xml:space="preserve">
     <value>Status: Connecting</value>
   </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>Reconnect</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Status: Connected</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>"An unhandled exception occured\nIt has been logged to %appdata%\Courvix\error.log"</value>
+  </data>
 </root>

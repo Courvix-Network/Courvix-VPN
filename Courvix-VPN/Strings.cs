@@ -33,7 +33,8 @@ namespace Courvix_VPN
 
         public static readonly string Data =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Courvix");
-
+        public static readonly string ErrorLogs =
+            Path.Combine(Data, "error.log");
         public static readonly string OpenVpnLogs = Path.Combine(Data, "openvpnoutput.txt");
         public static readonly string ConfigDirectory = Path.Combine(Data, "configs");
     }

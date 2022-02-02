@@ -34,7 +34,7 @@ namespace Courvix_VPN
         private static readonly HttpClient _client = new HttpClient();
         private static List<Server> _servers;
         private static OpenVPN _openvpn;
-        private static string _connectedServer;
+        private static Server _connectedServer;
 
         public MainForm()
         {
@@ -44,30 +44,35 @@ namespace Courvix_VPN
 
         private async void ConnectBTN_Click(object sender, EventArgs e)
         {
-            if (ConnectBTN.Text == Resources.Vpn_Disconnect)
+            if (_connectedServer != null)
             {
+                var shouldReturn = ConnectBTN.Text == Resources.Vpn_Disconnect;
                 await Task.Run(() => _openvpn.Dispose());
                 _openvpn = null;
+                _connectedServer = null;
+                if (shouldReturn)
+                {
+                    return;
+                }
             }
-            else
-            {
-                var server = _servers.First(x => x.ServerName == serversCB.Text);
-                _connectedServer = server.ServerName;
-                ConnectBTN.Enabled = false;
-                ConnectBTN.Text = Resources.Vpn_Connecting;
-                ConnectBTN.ShadowDecoration.Color = Color.Gray;
 
-                await GetConfig(server);
-                statuslbl.Text = Resources.Status_Vpn_Connecting;
-                connectingIndicator.Visible = true;
-                connectingIndicator.Start();
-                _openvpn = new OpenVPN(Path.Combine(Strings.ConfigDirectory, server.ServerName), Strings.OpenVpnPath,
-                    logPath: Strings.OpenVpnLogs);
-                _openvpn.Closed += Manager_Closed;
-                _openvpn.Connected += Manager_Connected;
-                _openvpn.ConnectionErrored += Manager_ConnectionErrored;
-                _openvpn.Output += Manager_Output;
-            }
+            
+            var server = _servers.First(x => x.ServerName == serversCB.Text);
+            _connectedServer = server;
+            ConnectBTN.Enabled = false;
+            ConnectBTN.Text = Resources.Vpn_Connecting;
+            ConnectBTN.ShadowDecoration.Color = Color.Gray;
+
+            await GetConfig(server);
+            statuslbl.Text = Resources.Status_Vpn_Connecting;
+            connectingIndicator.Visible = true;
+            connectingIndicator.Start();
+            _openvpn = new OpenVPN(Path.Combine(Strings.ConfigDirectory, server.ServerName), Strings.OpenVpnPath,
+                logPath: Strings.OpenVpnLogs);
+            _openvpn.Closed += Manager_Closed;
+            _openvpn.Connected += Manager_Connected;
+            _openvpn.ConnectionErrored += Manager_ConnectionErrored;
+            _openvpn.Output += Manager_Output;
         }
 
         private void Manager_Output(object sender, string output)
@@ -75,15 +80,15 @@ namespace Courvix_VPN
             File.AppendAllText(Strings.OpenVpnLogs, output);
         }
 
-        private async Task GetConfig(Server server)
+        private async Task GetConfig(Server server, bool force = true)
         {
             if (!Directory.Exists(Strings.ConfigDirectory))
                 Directory.CreateDirectory(Strings.ConfigDirectory);
-            if (!File.Exists(Path.Combine(Strings.ConfigDirectory, server.ServerName)))
+            if (force || !File.Exists(Path.Combine(Strings.ConfigDirectory, server.ServerName)))
             {
                 statuslbl.Text = Resources.Downloading_Config;
                 var resp = await _client.GetAsync(server.ConfigLink);
-                if ((int) resp.StatusCode == 429)
+                if ((int)resp.StatusCode == 429)
                 {
                     MessageBox.Show(Resources.Failed_Download_Config);
                     Application.Exit();
@@ -96,7 +101,7 @@ namespace Courvix_VPN
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            
+
             try
             {
                 statuslbl.Text = Resources.Checking_For_Updates;
@@ -105,7 +110,7 @@ namespace Courvix_VPN
                 CheckOpenVPN();
                 statuslbl.Text = Resources.Getting_Servers;
                 _servers = await _client.GetAsync<List<Server>>("https://api.courvix.com/vpn/servers");
-                _servers = _servers.OrderBy(x => x.CountryCode).ThenBy(x => x.ServerName).ToList();
+                _servers = _servers.OrderBy(x => x.ServerName).ToList();
                 serversCB.DataSource = _servers.Where(x => x.Enabled && !x.Down).Select(x => x.ServerName).ToArray();
             }
             catch
@@ -117,24 +122,25 @@ namespace Courvix_VPN
             var settings = SettingsManager.Load();
             RPCCheckbox.Checked = settings.DiscordRPC;
             statuslbl.Text = Resources.Not_Connected;
-            lblVersion.Text = "v1.0.4";
+            lblVersion.Text = "1.0.4";
         }
 
         private async Task CheckVersion()
         {
-            var clientversion = await _client.GetAsync<ClientVersion>("https://courvix.com/vpn/client_version.json");
-            if (clientversion.Version > Assembly.GetExecutingAssembly().GetName().Version)
+            var clientVersion = await _client.GetAsync<ClientVersion>("https://courvix.com/vpn/client_version.json");
+            if (clientVersion.Version > Assembly.GetExecutingAssembly().GetName().Version)
             {
                 if (MessageBox.Show(Resources.New_Version_Found, "Courvix VPN",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     statuslbl.Text = Resources.Downloading_Update;
-                    var bytes = await _client.GetByteArrayAsync(clientversion.DownloadLink);
+                    var bytes = await _client.GetByteArrayAsync(clientVersion.DownloadLink);
                     var fileName = Environment.GetCommandLineArgs().First();
                     if (File.Exists(Path.Combine(Path.GetTempPath(), Path.GetFileName(fileName))))
                     {
                         File.Delete(Path.Combine(Path.GetTempPath(), Path.GetFileName(fileName)));
                     }
+
                     File.Move(fileName, Path.Combine(Path.GetTempPath(), Path.GetFileName(fileName)));
                     File.WriteAllBytes(fileName, bytes);
                     Process.Start(fileName);
@@ -143,7 +149,7 @@ namespace Courvix_VPN
             }
         }
 
-    private void RPCCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void RPCCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             var settings = SettingsManager.Load();
             settings.DiscordRPC = RPCCheckbox.Checked;
@@ -173,6 +179,7 @@ namespace Courvix_VPN
                 }
             }
         }
+
         private void Manager_ConnectionErrored(object sender, string output)
         {
             _openvpn.Dispose();
@@ -182,6 +189,7 @@ namespace Courvix_VPN
                 ConnectBTN.Enabled = true;
                 ConnectBTN.Text = Resources.Vpn_Connect;
                 statuslbl.Text = Resources.Not_Connected;
+                connectingIndicator.Visible = false;
                 CustomMessageBox.Show("Courvix VPN", output);
             });
 
@@ -196,20 +204,23 @@ namespace Courvix_VPN
             base.Invoke((MethodInvoker)delegate
             {
                 ConnectBTN.Text = Resources.Vpn_Connect;
-                statuslbl.Text = Resources.Not_Connected;
+                statuslbl.Text = Resources.Not_Connected;  
+                connectingIndicator.Visible = false;
                 ConnectBTN.Enabled = true;
             });
         }
 
         private void Manager_Connected(object sender)
         {
-            Globals.RichPresence.State = $"Connected to {_connectedServer}";
+            Globals.RichPresence.State = $"Connected to {_connectedServer.ServerName}";
             Globals.SetRPC();
             base.Invoke((MethodInvoker)delegate
             {
-                ConnectBTN.Text = Resources.Vpn_Disconnect;
+                ConnectBTN.Text = _connectedServer != _servers.First(x => x.ServerName == serversCB.Text)
+                    ? Resources.Reconnect
+                    : Resources.Vpn_Disconnect;
                 ConnectBTN.Enabled = true;
-                statuslbl.Text = "Status: Connected";
+                statuslbl.Text = Resources.Connected;
                 connectingIndicator.Visible = false;
                 connectingIndicator.Stop();
             });
@@ -232,6 +243,14 @@ namespace Courvix_VPN
             // Make sure RPC is properly cleared on exit
             Globals.RPCClient.Dispose();
             Application.Exit();
+        }
+
+        private void serversCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_connectedServer == null) 
+                return;
+            var server = _servers.First(x => x.ServerName == serversCB.Text);
+            ConnectBTN.Text = server != _connectedServer ? Resources.Reconnect : Resources.Vpn_Disconnect;
         }
     }
 }
