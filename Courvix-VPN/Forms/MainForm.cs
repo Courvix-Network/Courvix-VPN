@@ -248,5 +248,22 @@ namespace Courvix_VPN
             var server = _servers.First(x => x.ServerName == serversCB.Text);
             ConnectBTN.Text = server != _connectedServer ? Resources.Reconnect : Resources.Vpn_Disconnect;
         }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            notifyIcon1.Visible = true;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            notifyIcon1.Visible = false;
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

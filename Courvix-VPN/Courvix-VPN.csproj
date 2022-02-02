@@ -53,6 +53,9 @@
     <Reference Include="DiscordRPC, Version=1.0.175.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DiscordRichPresence.1.0.175\lib\net35\DiscordRPC.dll</HintPath>
     </Reference>
+    <Reference Include="Guna.UI2, Version=1.0.1.6, Culture=neutral">
+      <HintPath>..\..\..\RiderProjects\WindowsFormsApp1\packages\Guna.UI2.WinForms.2.0.1.6\lib\net40\Guna.UI2.dll</HintPath>
+    </Reference>
     <Reference Include="Guna.UI2, Version=2.0.2.8, Culture=neutral, PublicKeyToken=e4b9cdd7b4cde4b4">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.2.8\lib\net40\Guna.UI2.dll</HintPath>
       <Private>True</Private>

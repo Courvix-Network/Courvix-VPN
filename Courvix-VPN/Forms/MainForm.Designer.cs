@@ -47,6 +47,11 @@ namespace Courvix_VPN
             this.btnMinimize = new Guna.UI2.WinForms.Guna2ControlBox();
             this.connectingIndicator = new Guna.UI2.WinForms.Guna2ProgressIndicator();
             this.lblVersion = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.guna2ContextMenuStrip1 = new Guna.UI2.WinForms.Guna2ContextMenuStrip();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.guna2ContextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerlbl
@@ -243,6 +248,7 @@ namespace Courvix_VPN
             this.btnMinimize.ShadowDecoration.Parent = this.btnMinimize;
             this.btnMinimize.Size = new System.Drawing.Size(45, 29);
             this.btnMinimize.TabIndex = 11;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
             // connectingIndicator
             // 
@@ -265,6 +271,44 @@ namespace Courvix_VPN
             this.lblVersion.Size = new System.Drawing.Size(60, 15);
             this.lblVersion.TabIndex = 13;
             this.lblVersion.Text = "version n/a";
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.guna2ContextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Courvix VPN";
+            // 
+            // guna2ContextMenuStrip1
+            // 
+            this.guna2ContextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(14)))), ((int)(((byte)(21)))));
+            this.guna2ContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.openToolStripMenuItem, this.closeToolStripMenuItem });
+            this.guna2ContextMenuStrip1.Name = "guna2ContextMenuStrip1";
+            this.guna2ContextMenuStrip1.RenderStyle.ArrowColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2ContextMenuStrip1.RenderStyle.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(11)))), ((int)(((byte)(17)))));
+            this.guna2ContextMenuStrip1.RenderStyle.ColorTable = null;
+            this.guna2ContextMenuStrip1.RenderStyle.RoundedEdges = true;
+            this.guna2ContextMenuStrip1.RenderStyle.SelectionArrowColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2ContextMenuStrip1.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(99)))), ((int)(((byte)(204)))));
+            this.guna2ContextMenuStrip1.RenderStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.guna2ContextMenuStrip1.RenderStyle.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(11)))), ((int)(((byte)(17)))));
+            this.guna2ContextMenuStrip1.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.guna2ContextMenuStrip1.Size = new System.Drawing.Size(104, 48);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -291,9 +335,17 @@ namespace Courvix_VPN
             this.Name = "MainForm";
             this.Text = "Courvix VPN";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.guna2ContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private Guna.UI2.WinForms.Guna2ContextMenuStrip guna2ContextMenuStrip1;
 
         #endregion
 
