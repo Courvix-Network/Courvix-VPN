@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Threading.Tasks;
 using Courvix_VPN.Properties;
+using DiscordRPC;
 
 namespace Courvix_VPN
 {
@@ -188,7 +189,7 @@ namespace Courvix_VPN
                 connectingIndicator.Visible = false;
                 CustomMessageBox.Show("Courvix VPN", output);
             });
-
+            Globals.RichPresence.Timestamps = null;
             Globals.RichPresence.State = $"Disconnected";
             Globals.SetRPC();
         }
@@ -196,6 +197,7 @@ namespace Courvix_VPN
         private void Manager_Closed(object sender)
         {
             Globals.RichPresence.State = $"Not Connected";
+            Globals.RichPresence.Timestamps = null;
             Globals.SetRPC();
             base.Invoke((MethodInvoker)delegate
             {
@@ -209,6 +211,7 @@ namespace Courvix_VPN
         private void Manager_Connected(object sender)
         {
             Globals.RichPresence.State = $"Connected to {_connectedServer.ServerName}";
+            Globals.RichPresence.Timestamps = Timestamps.Now;
             Globals.SetRPC();
             base.Invoke((MethodInvoker)delegate
             {
