@@ -9,13 +9,13 @@ namespace Courvix_VPN
 {
     public static class Globals
     {
-        public static DiscordRPC.DiscordRpcClient RPCClient = new DiscordRPC.DiscordRpcClient("840503862581919754");
+        public static DiscordRPC.DiscordRpcClient RPCClient = new DiscordRPC.DiscordRpcClient("939276152797814834");
         public static readonly DiscordRPC.RichPresence RichPresence = new DiscordRPC.RichPresence
         {
             State = "Not Connected",
             Assets = new DiscordRPC.Assets
             {
-                LargeImageKey = "courvixlarge",
+                LargeImageKey = "network_plain",
                 SmallImageKey = "small"
             }, 
             Buttons = new DiscordRPC.Button[]
