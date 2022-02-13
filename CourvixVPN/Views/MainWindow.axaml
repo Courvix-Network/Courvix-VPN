@@ -1,0 +1,33 @@
+<Window
+    Background="#0C0E15"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="-1"
+    ExtendClientAreaToDecorationsHint="True"
+    Icon="/Assets/courvix.ico"
+    Title="CourvixVPN"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="500"
+    d:DesignWidth="400"
+    mc:Ignorable="d"
+    x:Class="CourvixVPN.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:CourvixVPN.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:CourvixVPN.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <DockPanel
+        HorizontalAlignment="Stretch"
+        Name="ContentWrapper"
+        VerticalAlignment="Stretch">
+        <controls:WindowsTitleBar IsSeamless="True" />
+        <DockPanel Background="Transparent" />
+    </DockPanel>
+
+
+</Window>

@@ -1,0 +1,133 @@
+﻿<UserControl
+    DockPanel.Dock="Top"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="CourvixVPN.Controls.WindowsTitleBar"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <Grid>
+            <!--  The proper way would be not to use white as default, but somehow retrieve the users' window chrome color.  -->
+            <DockPanel
+                Background="White"
+                IsHitTestVisible="False"
+                Name="TitleBarBackground" />
+            <DockPanel Name="TitleBar">
+                <StackPanel
+                    DockPanel.Dock="Left"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <TextBlock
+                        Margin="5,0,3,0"
+                        Name="WindowIcon"
+                        Text="Courvix VPN"
+                        VerticalAlignment="Center"
+                        Width="20" />
+                    <NativeMenuBar
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Left"
+                        Name="SeamlessMenuBar"
+                        Width="100" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="Black"
+                        IsHitTestVisible="False"
+                        Name="SystemChromeTitle"
+                        Text="CourvixVPN"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <Button
+                        BorderThickness="0"
+                        Height="30"
+                        HorizontalContentAlignment="Center"
+                        Name="MinimizeButton"
+                        ToolTip.Tip="Minimize"
+                        Width="46">
+                        <Button.Resources />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="#44AAAAAA" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                        </Button.Styles>
+                        <Path
+                            Data="M2048 1229v-205h-2048v205h2048z"
+                            Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                            HorizontalAlignment="Center"
+                            Margin="10,0,10,0"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button
+                        BorderThickness="0"
+                        Name="MaximizeButton"
+                        VerticalAlignment="Stretch"
+                        Width="46">
+                        <ToolTip.Tip>
+                            <ToolTip Content="Maximize" Name="MaximizeToolTip" />
+                        </ToolTip.Tip>
+
+                        <Button.Resources />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="#44AAAAAA" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                        </Button.Styles>
+                        <Path
+                            Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"
+                            Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                            HorizontalAlignment="Center"
+                            Margin="10,0,10,0"
+                            Name="MaximizeIcon"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button
+                        BorderThickness="0"
+                        Name="CloseButton"
+                        ToolTip.Tip="Close"
+                        VerticalAlignment="Stretch"
+                        Width="46">
+                        <Button.Resources />
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Red" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                            <Style Selector="Button:pointerover &gt; Path">
+                                <Setter Property="Fill" Value="White" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) &gt; Path">
+                                <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                            </Style>
+                        </Button.Styles>
+                        <Path
+                            Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"
+                            HorizontalAlignment="Center"
+                            Margin="10,0,10,0"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center" />
+                    </Button>
+
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+        <NativeMenuBar HorizontalAlignment="Left" Name="DefaultMenuBar" />
+    </StackPanel>
+</UserControl>

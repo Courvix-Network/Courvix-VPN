@@ -1,0 +1,13 @@
+<Application
+    x:Class="CourvixVPN.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:local="using:CourvixVPN"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme Mode="Dark" />
+    </Application.Styles>
+</Application>
