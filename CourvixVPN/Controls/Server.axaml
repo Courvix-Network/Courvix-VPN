@@ -1,0 +1,45 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="CourvixVPN.Controls.Server"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border
+        Background="#0F111A"
+        CornerRadius="15"
+        Height="60"
+        HorizontalAlignment="Stretch"
+        Margin="0,0,0,10"
+        Padding="15"
+        VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                FontWeight="SemiBold"
+                HorizontalAlignment="Left"
+                Margin="40,0,0,0"
+                Name="NameText"
+                Opacity="0.3"
+                Text="NAME"
+                VerticalAlignment="Center" />
+            <TextBlock
+                FontWeight="SemiBold"
+                HorizontalAlignment="Left"
+                Margin="80,0,0,0"
+                Name="ProviderText"
+                Opacity="0.3"
+                Text="PROVIDER"
+                VerticalAlignment="Center" />
+            <TextBlock
+                FontWeight="SemiBold"
+                HorizontalAlignment="Left"
+                Margin="80,0,0,0"
+                Name="ProtectionText"
+                Opacity="0.3"
+                Text="PROTECTION"
+                VerticalAlignment="Center" />
+        </StackPanel>
+    </Border>
+</UserControl>

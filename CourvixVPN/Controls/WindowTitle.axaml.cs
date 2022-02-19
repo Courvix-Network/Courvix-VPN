@@ -59,12 +59,10 @@ public partial class WindowsTitleBar : UserControl
             _maximizeIcon = this.FindControl<Path>("MaximizeIcon");
             _maximizeToolTip = this.FindControl<ToolTip>("MaximizeToolTip");
             var closeButton = this.FindControl<Button>("CloseButton");
-            var windowIcon = this.FindControl<TextBlock>("WindowIcon");
 
             minimizeButton.Click += MinimizeWindow;
             maximizeButton.Click += MaximizeWindow;
             closeButton.Click += CloseWindow;
-            windowIcon.DoubleTapped += CloseWindow;
 
             _titleBar = this.FindControl<DockPanel>("TitleBar");
             _titleBarBackground = this.FindControl<DockPanel>("TitleBarBackground");

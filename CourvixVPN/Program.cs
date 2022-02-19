@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using CourvixVPN.API;
+using CourvixVPN.API.Interfaces;
+using CourvixVPN.Shared;
 
 namespace CourvixVPN
 {
@@ -11,8 +15,21 @@ namespace CourvixVPN
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        public static async Task Main(string[] args)
+        {
+            ConfigureServices();
+            
+            // Get servers before app is started
+            Globals.Servers = await Globals.Container.GetInstance<ICourvixApi>().GetServersAsync();
+            
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+        }
+
+        private static void ConfigureServices()
+        {
+            Globals.Container.RegisterSingleton<ICourvixApi, CourvixApi>();
+        }
 
         // Avalonia configuration, don't remove; also used by visual designer.
         private static AppBuilder BuildAvaloniaApp()

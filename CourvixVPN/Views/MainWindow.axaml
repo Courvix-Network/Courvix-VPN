@@ -3,17 +3,20 @@
     ExtendClientAreaChromeHints="NoChrome"
     ExtendClientAreaTitleBarHeightHint="-1"
     ExtendClientAreaToDecorationsHint="True"
+    Height="500"
     Icon="/Assets/courvix.ico"
+    MinHeight="500"
+    MinWidth="800"
     Title="CourvixVPN"
+    Width="800"
     WindowStartupLocation="CenterScreen"
-    d:DesignHeight="500"
-    d:DesignWidth="400"
     mc:Ignorable="d"
     x:Class="CourvixVPN.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:CourvixVPN.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:CourvixVPN.API.Models;assembly=CourvixVPN.API"
     xmlns:vm="using:CourvixVPN.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -26,7 +29,81 @@
         Name="ContentWrapper"
         VerticalAlignment="Stretch">
         <controls:WindowsTitleBar IsSeamless="True" />
-        <DockPanel Background="Transparent" />
+        <DockPanel Background="Transparent">
+            <StackPanel>
+                <Border
+                    Background="#0F111A"
+                    CornerRadius="15"
+                    Height="165"
+                    HorizontalAlignment="Stretch"
+                    Margin="15"
+                    Padding="15"
+                    VerticalAlignment="Top">
+                    <Grid>
+                        <StackPanel
+                            HorizontalAlignment="Left"
+                            Margin="20,0,0,0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <Ellipse
+                                Fill="Green"
+                                Height="10"
+                                Margin="0,0,15,0"
+                                Width="10" />
+                            <TextBlock
+                                FontSize="28"
+                                FontWeight="ExtraBold"
+                                Text="Connected!" />
+                        </StackPanel>
+                        <TextBlock
+                            FontWeight="SemiBold"
+                            HorizontalAlignment="Left"
+                            Margin="47,60,0,0"
+                            Opacity="0.3"
+                            Text="LONDON #1"
+                            VerticalAlignment="Center" />
+
+                        <Button
+                            CornerRadius="7"
+                            HorizontalAlignment="Right"
+                            Padding="12"
+                            VerticalAlignment="Center">
+                            <TextBlock FontWeight="Bold" Text="CONNECT" />
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        Margin="60,20,0,0"
+                        Opacity="0.3"
+                        Text="NAME"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        Margin="80,20,0,0"
+                        Opacity="0.3"
+                        Text="PROVIDER"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        Margin="80,20,0,0"
+                        Opacity="0.3"
+                        Text="PROTECTION"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+
+                <ItemsControl
+                    HorizontalAlignment="Stretch"
+                    Margin="15"
+                    Name="UsersControl"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+        </DockPanel>
     </DockPanel>
 
 

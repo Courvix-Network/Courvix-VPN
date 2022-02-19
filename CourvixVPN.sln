@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourvixVPN", "CourvixVPN\CourvixVPN.csproj", "{7BB630B5-AE3B-46F0-BDDC-5FBE75AEC404}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourvixVPN.API", "CourvixVPN.API\CourvixVPN.API.csproj", "{EB145D15-03E4-4D7D-B67D-2CC63601348C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourvixVPN.Shared", "CourvixVPN.Shared\CourvixVPN.Shared.csproj", "{DD106E42-C05B-429E-BF73-414F9AF99BB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{7BB630B5-AE3B-46F0-BDDC-5FBE75AEC404}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BB630B5-AE3B-46F0-BDDC-5FBE75AEC404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BB630B5-AE3B-46F0-BDDC-5FBE75AEC404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB145D15-03E4-4D7D-B67D-2CC63601348C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB145D15-03E4-4D7D-B67D-2CC63601348C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB145D15-03E4-4D7D-B67D-2CC63601348C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB145D15-03E4-4D7D-B67D-2CC63601348C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD106E42-C05B-429E-BF73-414F9AF99BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD106E42-C05B-429E-BF73-414F9AF99BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD106E42-C05B-429E-BF73-414F9AF99BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD106E42-C05B-429E-BF73-414F9AF99BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
